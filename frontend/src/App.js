@@ -1,7 +1,11 @@
 import React from "react";
 import './App.css';
-import UsersList from "./components/UsersList";
+
 import axios from "axios";
+
+import UsersList from "./components/UsersList";
+import Menu from "./components/menu";
+import Footer from "./components/footer";
 
 
 class App extends React.Component {
@@ -17,7 +21,6 @@ class App extends React.Component {
             .get('http://127.0.0.1:8000/api/users/')
             .then(response => {
                 const users = response.data
-
                 this.setState({
                     'users': users
                 })
@@ -27,8 +30,10 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <UsersList users={this.state.users} />
+            <div className="container">
+                <Menu/>
+                <UsersList users={this.state.users}/>
+                <Footer/>
             </div>
         )
     }
