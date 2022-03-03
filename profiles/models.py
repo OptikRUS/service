@@ -1,0 +1,19 @@
+from django.db import models
+
+from users.models import User
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=32)
+    url = models.URLField()
+    users = models.ManyToManyField(User)
+    created_at = models.DateTimeField()
+
+
+class ToDo(models.Model):
+    user = models.ForeignKey(User, models.PROTECT)
+    name = models.CharField(max_length=32)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
