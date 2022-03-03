@@ -9,6 +9,9 @@ class Project(models.Model):
     users = models.ManyToManyField(User)
     created_at = models.DateTimeField()
 
+    def __str__(self):
+        return self.name
+
 
 class ToDo(models.Model):
     user = models.ForeignKey(User, models.PROTECT)
@@ -17,3 +20,6 @@ class ToDo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.update_at}'
