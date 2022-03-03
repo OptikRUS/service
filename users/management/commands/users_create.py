@@ -26,6 +26,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
+        self.stdout.write("Deleting old data...")
         ToDo.objects.all().delete()
         User.objects.all().delete()
         count = options['count']
@@ -44,5 +45,5 @@ class Command(BaseCommand):
         for _ in range(count):
             person = UserFactory()
             people.append(person)
-            print(f'{person} создан')
+            print(f'Пользователь {person} создан')
         print('Done!')

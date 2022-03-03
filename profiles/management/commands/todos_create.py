@@ -15,22 +15,23 @@ class ToDoFactory(DjangoModelFactory):
     user = factory.Iterator([i for i in User.objects.all()])
     name = factory.Faker('company')
     text = factory.Faker('text')
+    is_active = factory.Faker('pybool')
     created_at = factory.Faker('date_time')
     update_at = factory.Faker('date_time')
-    is_active = factory.Faker('pybool')
 
 
 class Command(BaseCommand):
-    help = 'Create superuser django & users to test'
+    help = 'Create todos to test'
 
     def add_arguments(self, parser):
         parser.add_argument('count', type=int)
 
     @transaction.atomic
     def handle(self, *args, **options):
+        self.stdout.write("Deleting old data...")
         ToDo.objects.all().delete()
         count = options['count']
-        self.stdout.write("Creating new users...")
+        self.stdout.write("Creating new todos...")
         todos = []
         for _ in range(count):
             todo = ToDoFactory()

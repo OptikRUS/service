@@ -7,7 +7,7 @@ class Project(models.Model):
     name = models.CharField(max_length=32)
     url = models.URLField()
     users = models.ManyToManyField(User)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
