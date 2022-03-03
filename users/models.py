@@ -9,7 +9,7 @@ class User(AbstractUser):
     email = models.EmailField('email address', blank=True, unique=True)
 
     def __str__(self):
-        return f'Пользователь {self.first_name} {self.last_name}'
+        return f'{self.first_name} {self.last_name}'
 
     class Meta:
         verbose_name = 'пользователь'

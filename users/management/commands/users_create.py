@@ -5,6 +5,7 @@ import factory
 from factory.django import DjangoModelFactory
 
 from users.models import User
+from profiles.models import ToDo
 
 
 class UserFactory(DjangoModelFactory):
@@ -25,6 +26,7 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
+        ToDo.objects.all().delete()
         User.objects.all().delete()
         count = options['count']
         superuser = User.objects.create_superuser(

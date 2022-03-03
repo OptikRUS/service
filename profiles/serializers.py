@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, StringRelatedField
 
 from users.models import User
 from users.serializers import UserModelSerializer
@@ -11,12 +11,6 @@ class UserListModelSerializer(UserModelSerializer):
         fields = ('username', 'first_name', 'last_name', 'email')
 
 
-class UserTodoListModelSerializer(UserModelSerializer):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', )
-
-
 class ProjectModelSerializer(ModelSerializer):
     users = UserListModelSerializer(many=True)
 
@@ -26,7 +20,7 @@ class ProjectModelSerializer(ModelSerializer):
 
 
 class ToDoModelSerializer(ModelSerializer):
-    user = UserTodoListModelSerializer()
+    user = StringRelatedField()
 
     class Meta:
         model = ToDo
