@@ -15,6 +15,7 @@ class Project(models.Model):
 
 class ToDo(models.Model):
     user = models.ForeignKey(User, models.PROTECT)
+    project = models.ForeignKey(Project, models.PROTECT)
     name = models.CharField(max_length=32)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -4,7 +4,7 @@ from django.db import transaction
 import factory
 from factory.django import DjangoModelFactory
 
-from profiles.models import ToDo
+from profiles.models import ToDo, Project
 from users.models import User
 
 
@@ -13,6 +13,7 @@ class ToDoFactory(DjangoModelFactory):
         model = ToDo
 
     user = factory.Iterator([i for i in User.objects.all()])
+    project = factory.Iterator([i for i in Project.objects.all()])
     name = factory.Faker('company')
     text = factory.Faker('text')
     is_active = factory.Faker('pybool')
@@ -33,6 +34,7 @@ class Command(BaseCommand):
         count = options['count']
         self.stdout.write("Creating new todos...")
         todos = []
+
         for _ in range(count):
             todo = ToDoFactory()
             todos.append(todo)

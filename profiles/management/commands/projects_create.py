@@ -1,7 +1,7 @@
+import random
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-import random
 from random import randint
 import factory
 from factory.django import DjangoModelFactory
