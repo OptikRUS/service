@@ -15,7 +15,7 @@ class ProjectsFilter(FilterSet):
 
 class ToDoFilter(FilterSet):
     project_id__name = CharFilter(lookup_expr='contains')
-    created_at = DateTimeFromToRangeFilter(widget=RangeWidget(attrs={'placeholder': 'YYYY-MM-DD HH/MM/SS'}))
+    created_at = DateTimeFromToRangeFilter(widget=RangeWidget(attrs={'placeholder': 'YYYY-MM-DD HH:MM:SS'}))
     is_active = BooleanFilter(widget=BooleanWidget())
 
     class Meta:
