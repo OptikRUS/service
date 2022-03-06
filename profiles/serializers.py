@@ -11,12 +11,19 @@ class UserListModelSerializer(UserModelSerializer):
         fields = ('username', 'first_name', 'last_name', 'email')
 
 
+class ToDoListSerializer(HyperlinkedModelSerializer):
+    class Meta:
+        model = ToDo
+        fields = ('url', 'update_at', 'is_active')
+
+
 class ProjectModelSerializer(ModelSerializer):
     users = UserListModelSerializer(many=True)
+    todo_list = ToDoListSerializer(many=True)
 
     class Meta:
         model = Project
-        fields = ('name', 'url', 'created_at', 'users')
+        fields = ('name', 'url', 'created_at', 'users', 'todo_list')
 
 
 class ToDoModelSerializer(HyperlinkedModelSerializer):
