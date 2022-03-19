@@ -1,3 +1,4 @@
+import React from 'react'
 
 const ToDoItem = ({todo}) => {
     return (
@@ -40,3 +41,32 @@ const ToDosList = ({todos}) => {
 }
 
 export default ToDosList
+
+
+// import React from 'react'
+//
+// const ToDoItem = ({item}) => {
+//     return (
+//         <tr>
+//             <td>{item.user}</td>
+//             <td>{item.name}</td>
+//             <td>{item.text}</td>
+//         </tr>)
+// }
+// const ToDosList = ({items}) => {
+//     return (
+//         <table>
+//             <thead>
+//             <tr>
+//                 <th>Author</th>
+//                 <th>Name</th>
+//                 <th>Text</th>
+//             </tr>
+//             </thead>
+//             <tbody>
+//             {items?.map((item) => <ToDoItem item={item}/>)}
+//             </tbody>
+//         </table>
+//     )
+// }
+// export default ToDosList
