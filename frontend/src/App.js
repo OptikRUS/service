@@ -6,13 +6,14 @@ import axios from "axios";
 import UsersList from "./components/UsersList";
 import Menu from "./components/menu";
 import Footer from "./components/footer";
+import ProjectsList from "./components/ProjectsList";
 
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'users': []
+            'users': [],
         }
     }
 
@@ -20,9 +21,9 @@ class App extends React.Component {
         axios
             .get('http://127.0.0.1:8000/api/users/')
             .then(response => {
-                const users = response.data
+                const data = response.data
                 this.setState({
-                    'users': users
+                    'users': data.results
                 })
             })
             .catch(error => console.log(error))
@@ -30,9 +31,10 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="App">
                 <Menu/>
                 <UsersList users={this.state.users}/>
+                <ProjectsList projects={this.state.projects}/>
                 <Footer/>
             </div>
         )
