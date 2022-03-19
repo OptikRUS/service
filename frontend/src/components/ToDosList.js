@@ -1,37 +1,42 @@
-const ProjectItem = ({project}) => {
+
+const ToDoItem = ({todo}) => {
     return (
         <tr>
             <td>
-                {project.name}
+                {todo.user}
             </td>
             <td>
-                {project.url}
+                {todo.name}
             </td>
             <td>
-                {project.createdAt}
+                {todo.text}
+            </td>
+            <td>
+                {todo.updateAt}
             </td>
         </tr>
     )
 }
 
 
-const ProjectsList = ({projects}) => {
+const ToDosList = ({todos}) => {
     return (
         <div className="table-responsive">
             <table className="table table-striped table-sm">
                 <thead>
                 <tr>
+                    <th>User</th>
                     <th>Name</th>
-                    <th>Url</th>
-                    <th>Data Created</th>
+                    <th>Text</th>
+                    <th>Last update</th>
                 </tr>
                 </thead>
                 <tbody>
-                {projects?.map((project) => <ProjectItem key={project.id} project={project}/>)}
+                {todos?.map((todo) => <ToDoItem key={todo.id} todo={todo}/>)}
                 </tbody>
             </table>
         </div>
     )
 }
 
-export default ProjectsList
+export default ToDosList
