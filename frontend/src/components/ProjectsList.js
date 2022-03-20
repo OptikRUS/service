@@ -1,8 +1,13 @@
 const ProjectItem = ({project}) => {
+    let  userList = ''
+    project.users.forEach((user) => {userList += user.username + '\n'})
     return (
         <tr>
             <td>
                 {project.name}
+            </td>
+            <td>
+                {userList}
             </td>
             <td>
                 {project.url}
@@ -22,8 +27,9 @@ const ProjectsList = ({projects}) => {
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Users</th>
                     <th>Url</th>
-                    <th>Data Created</th>
+                    <th>Create at</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -7,6 +7,9 @@ const ToDoItem = ({todo}) => {
                 {todo.user}
             </td>
             <td>
+                {todo.project}
+            </td>
+            <td>
                 {todo.name}
             </td>
             <td>
@@ -26,7 +29,8 @@ const ToDosList = ({todos}) => {
             <table className="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>User</th>
+                    <th>Author</th>
+                    <th>Project</th>
                     <th>Name</th>
                     <th>Text</th>
                     <th>Last update</th>
@@ -41,32 +45,3 @@ const ToDosList = ({todos}) => {
 }
 
 export default ToDosList
-
-
-// import React from 'react'
-//
-// const ToDoItem = ({item}) => {
-//     return (
-//         <tr>
-//             <td>{item.user}</td>
-//             <td>{item.name}</td>
-//             <td>{item.text}</td>
-//         </tr>)
-// }
-// const ToDosList = ({items}) => {
-//     return (
-//         <table>
-//             <thead>
-//             <tr>
-//                 <th>Author</th>
-//                 <th>Name</th>
-//                 <th>Text</th>
-//             </tr>
-//             </thead>
-//             <tbody>
-//             {items?.map((item) => <ToDoItem item={item}/>)}
-//             </tbody>
-//         </table>
-//     )
-// }
-// export default ToDosList
