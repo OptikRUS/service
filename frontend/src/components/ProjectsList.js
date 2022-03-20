@@ -1,16 +1,14 @@
+import React from "react";
+import {Link} from 'react-router-dom'
+
 const ProjectItem = ({project}) => {
-    let  userList = ''
-    project.users.forEach((user) => {userList += user.username + '\n'})
     return (
         <tr>
             <td>
-                {project.name}
+                <Link to={`projects/${project.id}`}>{project.name}</Link>
             </td>
             <td>
-                {userList}
-            </td>
-            <td>
-                {project.url}
+                <a href={project.repoUrl}>{project.repoUrl}</a>
             </td>
             <td>
                 {project.createdAt}
@@ -26,10 +24,9 @@ const ProjectsList = ({projects}) => {
             <table className="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Users</th>
-                    <th>Url</th>
-                    <th>Create at</th>
+                    <th>Project Name</th>
+                    <th>Repo URL</th>
+                    <th>Created at</th>
                 </tr>
                 </thead>
                 <tbody>
