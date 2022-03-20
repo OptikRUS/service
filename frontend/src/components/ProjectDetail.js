@@ -22,11 +22,10 @@ const ProjectNotes= ({item}) => {
 const ProjectDetail = ({items}) => {
     let {id} = useParams();
     let project = items.filter((item) => item.id === +id)[0];
-    console.log(project)
     return (
         <div>
             <div className="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-                <div className="col-md-6 px-0" >
+                <div className="col-md-6 px-0">
                     <h1 className="display-4 fst-italic">Project: {project.name}</h1>
                     <p className="lead mb-0">Repo: <a href="#" className="text-white fw-bold">{project.repoUrl}</a></p>
                     <p className="lead mb-0">Created at: {project.createdAt}</p>

@@ -10,6 +10,7 @@ import ToDosList from "./components/ToDosList";
 import ProjectDetail from "./components/ProjectDetail";
 import Head from "./components/head";
 import {BrowserRouter, Link, Route} from 'react-router-dom'
+import UserDetail from "./components/UserDetail";
 
 
 class App extends React.Component {
@@ -84,6 +85,9 @@ class App extends React.Component {
                     </nav>
                     <Route exact path='/' component={() => <Head/>}/>
                     <Route exact path='/users' component={() => <UsersList users={this.state.users}/>}/>
+                    <Route path='/users/:uid'>
+                        <UserDetail items={this.state.users}/>
+                    </Route>
                     <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}/>}/>
                     <Route path='/projects/:id'>
                         <ProjectDetail items={this.state.projects}/>
