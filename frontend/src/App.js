@@ -9,8 +9,14 @@ import ProjectsList from "./components/ProjectsList";
 import ToDosList from "./components/ToDosList";
 import ProjectDetail from "./components/ProjectDetail";
 import Head from "./components/head";
-import {BrowserRouter, Link, Route} from 'react-router-dom'
 import UserDetail from "./components/UserDetail";
+import {BrowserRouter, Link, Route, Switch} from 'react-router-dom'
+
+const pageNotFound404 = ({location}) => {
+    return (
+        <h1>Page at '{location.pathname}' not found</h1>
+    )
+}
 
 
 class App extends React.Component {
@@ -83,16 +89,19 @@ class App extends React.Component {
                             </div>
                         </div>
                     </nav>
-                    <Route exact path='/' component={() => <Head/>}/>
-                    <Route exact path='/users' component={() => <UsersList users={this.state.users}/>}/>
-                    <Route path='/users/:uid'>
-                        <UserDetail items={this.state.users}/>
-                    </Route>
-                    <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}/>}/>
-                    <Route path='/projects/:id'>
-                        <ProjectDetail items={this.state.projects}/>
-                    </Route>
-                    <Route exact path='/notes' component={() => <ToDosList todos={this.state.todos}/>}/>
+                    <Switch>
+                        <Route exact path='/' component={() => <Head/>}/>
+                        <Route exact path='/users' component={() => <UsersList users={this.state.users}/>}/>
+                        <Route path='/users/:uid'>
+                            <UserDetail items={this.state.users}/>
+                        </Route>
+                        <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}/>}/>
+                        <Route path='/projects/:id'>
+                            <ProjectDetail items={this.state.projects}/>
+                        </Route>
+                        <Route exact path='/notes' component={() => <ToDosList todos={this.state.todos}/>}/>
+                        <Route component={pageNotFound404}/>
+                    </Switch>
                 </BrowserRouter>
                 <Footer/>
             </div>
