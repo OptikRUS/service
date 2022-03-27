@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Button} from "react-bootstrap";
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -36,7 +36,7 @@ class LoginForm extends React.Component {
                            placeholder="password" onChange={(event => this.handlerOnChange(event))}/>
                     <label htmlFor="floatingPassword">Password</label>
                 </div>
-                <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                <Button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</Button>
             </form>
         )
     }

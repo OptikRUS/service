@@ -37,7 +37,7 @@ const ToDosList = ({todos}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {todos?.map((todo) => <ToDoItem key={todo.id} todo={todo}/>)}
+                {todos?.map((todo) => <ToDoItem key={todo.url} todo={todo}/>)}
                 </tbody>
             </table>
         </div>

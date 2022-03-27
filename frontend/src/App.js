@@ -39,21 +39,22 @@ class App extends React.Component {
     getToken(username, password) {
         axios.post('http://127.0.0.1:8000/api-token-auth/', {username: username, password: password})
             .then(response => {
-                this.setToken(response.data['token'])
+                this.setToken(response.data['token'], username)
             }).catch(error => alert('Неверный логин или пароль'))
     }
 
     getTokenFromStorage() {
         const cookies = new Cookies()
         const token = cookies.get('token')
-        this.setState({'token': token}, () => this.loadData())
+        const username = cookies.get('username')
+        this.setState({'token': token, 'username': username}, () => this.loadData())
     }
 
-    setToken(token) {
+    setToken(token, username) {
         const cookies = new Cookies()
         cookies.set('token', token)
-        console.log('token', token)
-        this.setState({token: token}, () => this.loadData())
+        cookies.set('username', username)
+        this.setState({token: token, username: username}, () => this.loadData())
     }
 
     loadData() {
@@ -131,7 +132,9 @@ class App extends React.Component {
                                     </li>
                                 </ul>
                                 {this.isAuthenticated() ?
-                                    <Button onClick={() => this.logout()}>Logout</Button> :
+                                    <Button onClick={() => this.logout()}
+                                            onMouseOver={(event) => event.target.textContent = 'Logout'}
+                                            onMouseOut={(event) => event.target.textContent = this.state.username}>{this.state.username}</Button> :
                                     <Link to="/login" className="btn btn-success">Login</Link>}
                             </div>
                         </div>
