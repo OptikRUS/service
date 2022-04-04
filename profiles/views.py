@@ -2,6 +2,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
 
 from profiles.models import Project, ToDo
 from profiles.serializers import ProjectModelSerializer, ToDoModelSerializer
@@ -17,6 +18,7 @@ class ToDoLimitOffsetPagination(LimitOffsetPagination):
 
 
 class ProjectModelViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Project.objects.all()
     serializer_class = ProjectModelSerializer
     filterset_class = ProjectsFilter
@@ -32,6 +34,7 @@ class ProjectModelViewSet(ModelViewSet):
 
 
 class ToDoModelViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = ToDo.objects.all()
     serializer_class = ToDoModelSerializer
     filterset_class = ToDoFilter

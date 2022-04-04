@@ -34,7 +34,7 @@ const UsersList = ({users}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {users.map((user) => <UserItem user={user}/>)}
+                {users?.map((user) => <UserItem key={user.uid} user={user}/>)}
                 </tbody>
             </table>
         </div>
