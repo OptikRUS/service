@@ -15,7 +15,7 @@ class ProjectFactory(DjangoModelFactory):
         model = Project
 
     name = factory.Faker('word')
-    url = factory.Faker('uri')
+    repo_url = factory.Faker('url')
     created_at = factory.Faker('date_time')
 
 
