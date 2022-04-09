@@ -102,6 +102,17 @@ class App extends React.Component {
         return this.state.token !== '';
     }
 
+    deleteProject(id) {
+        const headers = this.getHeaders()
+        axios.delete(`http://127.0.0.1:8000/api/projects/${id}/`, {headers})
+            .then(response => {
+                this.setState({
+                    projects: this.state.projects.filter((item) => item.id !== id)
+                })
+            })
+            .catch(error => console.log(error))
+    }
+
     componentDidMount() {
         this.getTokenFromStorage();
     }
@@ -145,7 +156,8 @@ class App extends React.Component {
                         <Route path='/users/:uid'>
                             <UserDetail items={this.state.users}/>
                         </Route>
-                        <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}/>}/>
+                        <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}
+                                                                                     deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route path='/projects/:id'>
                             <ProjectDetail items={this.state.projects}/>
                         </Route>
