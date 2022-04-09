@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom'
+import {Button} from "react-bootstrap";
 
 const ProjectItem = ({project, deleteProject}) => {
     return (
@@ -14,9 +15,9 @@ const ProjectItem = ({project, deleteProject}) => {
                 {project.createdAt}
             </td>
             <td>
-                <button onClick={() => deleteProject(project.id)} type='button'>
+                <Button onClick={() => deleteProject(project.id)} type='button'>
                     Delete
-                </button>
+                </Button>
             </td>
         </tr>
     )
@@ -25,20 +26,25 @@ const ProjectItem = ({project, deleteProject}) => {
 
 const ProjectsList = ({projects, deleteProject}) => {
     return (
-        <div className="table-responsive">
-            <table className="table table-striped table-sm">
-                <thead>
-                <tr>
-                    <th>Project Name</th>
-                    <th>Repo URL</th>
-                    <th>Created at</th>
-                </tr>
-                </thead>
-                <tbody>
-                {projects?.map((project) => <ProjectItem key={project.id} project={project}
-                                                         deleteProject={deleteProject}/>)}
-                </tbody>
-            </table>
+        <div>
+            <div>
+                <Link to='projects/create/'>Create new project</Link>
+            </div>
+            <div className="table-responsive">
+                <table className="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Repo URL</th>
+                        <th>Created at</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {projects?.map((project) => <ProjectItem key={project.id} project={project}
+                                                             deleteProject={deleteProject}/>)}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

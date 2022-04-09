@@ -14,6 +14,7 @@ import {BrowserRouter, Link, Route, Switch} from 'react-router-dom'
 import LoginForm from "./components/Auth";
 import Cookies from "universal-cookie/lib";
 import {Button} from "react-bootstrap";
+import ProjectForm from "./components/ProjectForm";
 
 const pageNotFound404 = ({location}) => {
     return (
@@ -113,6 +114,20 @@ class App extends React.Component {
             .catch(error => console.log(error))
     }
 
+    createProject(name, repo, user) {
+        const headers = this.getHeaders()
+        const data = {name: name, repoUrl: repo, users: [user]}
+        console.log(data)
+        axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers})
+            .then(response => {
+                let newProject = response.data;
+                console.log(newProject)
+                // newProject.users
+                this.setState({projects: [...this.state.projects, newProject]})
+            })
+            .catch(error => console.log(error))
+    }
+
     componentDidMount() {
         this.getTokenFromStorage();
     }
@@ -156,6 +171,8 @@ class App extends React.Component {
                         <Route path='/users/:uid'>
                             <UserDetail items={this.state.users}/>
                         </Route>
+                        <Route exact path='/projects/create/' component={() => <ProjectForm
+                            createProject={(name, user, repo) => this.createProject(name, user, repo)}/>}/>
                         <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}
                                                                                      deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route path='/projects/:id'>
