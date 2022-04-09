@@ -4,12 +4,6 @@ const ToDoItem = ({todo}) => {
     return (
         <tr>
             <td>
-                {todo.user}
-            </td>
-            <td>
-                {todo.project}
-            </td>
-            <td>
                 {todo.name}
             </td>
             <td>
@@ -29,8 +23,6 @@ const ToDosList = ({todos}) => {
             <table className="table table-striped table-sm">
                 <thead>
                 <tr>
-                    <th>Author</th>
-                    <th>Project</th>
                     <th>Name</th>
                     <th>Text</th>
                     <th>Last update</th>
