@@ -114,9 +114,9 @@ class App extends React.Component {
             .catch(error => console.log(error))
     }
 
-    createProject(name, repo, user) {
+    createProject(name, repo, users) {
         const headers = this.getHeaders()
-        const data = {name: name, repoUrl: repo, users: [user]}
+        const data = {name: name, repoUrl: repo, users: users}
         axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers})
             .then(response => {
                 let newProject = response.data;
@@ -169,7 +169,7 @@ class App extends React.Component {
                             <UserDetail items={this.state.users}/>
                         </Route>
                         <Route exact path='/projects/create/' component={() => <ProjectForm users={this.state.users}
-                            createProject={(name, user, repo) => this.createProject(name, user, repo)}/>}/>
+                            createProject={(name, repo, users) => this.createProject(name, repo, users)}/>}/>
                         <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}
                                                                                      deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route path='/projects/:id'>

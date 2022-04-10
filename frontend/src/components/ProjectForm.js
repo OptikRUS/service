@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from "react-bootstrap";
 
 
 class ProjectForm extends React.Component {
@@ -7,7 +8,7 @@ class ProjectForm extends React.Component {
         this.state = {
             name: '',
             repo: '',
-            user: '',
+            users: [],
         }
     }
 
@@ -17,8 +18,22 @@ class ProjectForm extends React.Component {
         })
     }
 
+    handlerOnChangeMultipleSelect(event) {
+        let options = event.target.childNodes
+        let checkedValues = []
+        options.forEach((option) => {
+            if (option.selected) {
+                checkedValues.push(option.value)
+            }
+        })
+
+        this.setState({
+            [event.target.name]: checkedValues
+        })
+    }
+
     handlerOnSubmit(event) {
-        this.props.createProject(this.state.name, this.state.repo, this.state.user);
+        this.props.createProject(this.state.name, this.state.repo, this.state.users);
         event.preventDefault();
     }
 
@@ -37,13 +52,14 @@ class ProjectForm extends React.Component {
                                onChange={(event) => this.handlerOnChange(event)}/>
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="user">Users</label>
-                        <select name="user" className='form-control'
-                                onChange={(event) => this.handlerOnChange(event)}>
-                            {this.props.users.map((user) => <option key={user.uid} value={user.uid}>{user.username}</option>)}
-                        </select>
+                        <label htmlFor="users">Users
+                            <select name="users" multiple={true} className="form-control"
+                                    onChange={(event) => this.handlerOnChangeMultipleSelect(event)}> {this.props.users.map((user) =>
+                                <option key={user.uid} value={user.uid}>{user.username}</option>)}
+                            </select>
+                        </label>
                     </div>
-                    <input type="submit" value="Create" className='btn-primary'/>
+                    <Button type="submit" className='btn btn-primary'>Create</Button>
                 </form>
             </div>
         );
