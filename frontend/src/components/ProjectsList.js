@@ -37,6 +37,7 @@ const ProjectsList = ({projects, deleteProject}) => {
                         <th>Project Name</th>
                         <th>Repo URL</th>
                         <th>Created at</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
