@@ -24,9 +24,13 @@ const ProjectItem = ({project, deleteProject}) => {
 }
 
 
-const ProjectsList = ({projects, deleteProject}) => {
+const ProjectsList = ({projects, deleteProject, searchProject}) => {
     return (
         <div>
+            <form className="form-inline mt-2 mt-md-0">
+                <input className="form-control mr-sm-2" onChange={(event) => searchProject(event)}
+                       type="search" placeholder="Search project"/>
+            </form>
             <div>
                 <Link to='projects/create/'>Create new project</Link>
             </div>

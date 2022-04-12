@@ -30,6 +30,7 @@ class App extends React.Component {
         this.state = {
             'users': [],
             'projects': [],
+            'searched_projects': [],
             'todos': []
         }
     }
@@ -74,7 +75,8 @@ class App extends React.Component {
             .get('http://127.0.0.1:8000/api/projects/', {headers})
             .then(response => {
                 this.setState({
-                    'projects': response.data.results
+                    'projects': response.data.results,
+                    'searched_projects': response.data.results
                 })
             })
             .catch(error => console.log(error))
@@ -117,7 +119,9 @@ class App extends React.Component {
     deleteTodo(id) {
         const headers = this.getHeaders()
         axios.delete(`http://127.0.0.1:8000/api/todos/${id}/`, {headers})
-            .then(response => {this.setState({todos: this.state.todos})})
+            .then(response => {
+                this.setState({todos: this.state.todos})
+            })
             .catch(error => console.log(error))
     }
 
@@ -141,6 +145,18 @@ class App extends React.Component {
                 this.setState({todos: [...this.state.todos, newTodo]})
             })
             .catch(error => console.log(error))
+    }
+
+    searchProject(event) {
+        const query = event.target.value
+        console.log(query)
+        let filteredProjects = this.state.projects.filter((project) => project.name.includes(query))
+        let allProjects = this.state.projects
+        if (query) {
+            this.setState({searched_projects: filteredProjects})
+        } else {
+            this.setState({searched_projects: allProjects})
+        }
     }
 
     componentDidMount() {
@@ -187,14 +203,16 @@ class App extends React.Component {
                             <UserDetail items={this.state.users}/>
                         </Route>
                         <Route exact path='/projects/create/' component={() => <ProjectForm users={this.state.users}
-                            createProject={(name, repo, users) => this.createProject(name, repo, users)}/>}/>
-                        <Route exact path='/projects' component={() => <ProjectsList projects={this.state.projects}
-                                                                                     deleteProject={(id) => this.deleteProject(id)}/>}/>
+                                                                                            createProject={(name, repo, users) => this.createProject(name, repo, users)}/>}/>
+                        <Route exact path='/projects' component={() => <ProjectsList projects={this.state.searched_projects}
+                                                                                     deleteProject={(id) => this.deleteProject(id)}
+                                                                                     searchProject={(partName) => this.searchProject(partName)}/>}/>
                         <Route path='/projects/:id'>
                             <ProjectDetail items={this.state.projects}/>
                         </Route>
-                        <Route exact path='/notes/create/' component={() => <TodoForm users={this.state.users} projects={this.state.projects}
-                                                                                            createTodo={(name, text, isActive, user, project) => this.createToDo(name, text, isActive, user, project)}/>}/>
+                        <Route exact path='/notes/create/'
+                               component={() => <TodoForm users={this.state.users} projects={this.state.projects}
+                                                          createTodo={(name, text, isActive, user, project) => this.createToDo(name, text, isActive, user, project)}/>}/>
                         <Route exact path='/notes' component={() => <ToDosList todos={this.state.todos}
                                                                                deleteTodo={(id) => this.deleteTodo(id)}/>}/>
                         <Route exact path='/login' component={() => <LoginForm
