@@ -16,6 +16,7 @@ import Cookies from "universal-cookie/lib";
 import {Button} from "react-bootstrap";
 import ProjectForm from "./components/ProjectForm";
 import TodoForm from "./components/TodoForm";
+import ProjectEdit from "./components/ProjectEdit";
 
 const pageNotFound404 = ({location}) => {
     return (
@@ -30,6 +31,7 @@ class App extends React.Component {
         this.state = {
             'users': [],
             'projects': [],
+            'project': [],
             'searched_projects': [],
             'todos': []
         }
@@ -136,6 +138,17 @@ class App extends React.Component {
             .catch(error => console.log(error))
     }
 
+    editProject(id, name, repo, users) {
+        const headers = this.getHeaders()
+        const data = {name: name, repoUrl: repo, users: users}
+        axios.put(`http://127.0.0.1:8000/api/projects/${id}/`, data, {headers})
+            .then(response => {
+                let newProject = response.data;
+                this.setState({projects: [...this.state.projects, newProject]})
+            })
+            .catch(error => console.log(error))
+    }
+
     createToDo(name, text, isActive, user, project) {
         const headers = this.getHeaders()
         const data = {name: name, text: text, isActive: isActive, user: user, project: project}
@@ -149,7 +162,6 @@ class App extends React.Component {
 
     searchProject(event) {
         const query = event.target.value
-        console.log(query)
         let filteredProjects = this.state.projects.filter((project) => project.name.includes(query))
         let allProjects = this.state.projects
         if (query) {
@@ -204,9 +216,13 @@ class App extends React.Component {
                         </Route>
                         <Route exact path='/projects/create/' component={() => <ProjectForm users={this.state.users}
                                                                                             createProject={(name, repo, users) => this.createProject(name, repo, users)}/>}/>
-                        <Route exact path='/projects' component={() => <ProjectsList projects={this.state.searched_projects}
-                                                                                     deleteProject={(id) => this.deleteProject(id)}
-                                                                                     searchProject={(partName) => this.searchProject(partName)}/>}/>
+                        <Route exact path='/projects/edit/:id' component={() => <ProjectEdit users={this.state.users}
+                                                                                             projects={this.state.searched_projects}
+                                                                                             editProject={(id, name, repo, users) => this.editProject(id, name, repo, users)}/>}/>
+                        <Route exact path='/projects'
+                               component={() => <ProjectsList projects={this.state.searched_projects}
+                                                              deleteProject={(id) => this.deleteProject(id)}
+                                                              searchProject={(event) => this.searchProject(event)}/>}/>
                         <Route path='/projects/:id'>
                             <ProjectDetail items={this.state.projects}/>
                         </Route>

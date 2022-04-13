@@ -15,6 +15,11 @@ const ProjectItem = ({project, deleteProject}) => {
                 {project.createdAt}
             </td>
             <td>
+                <Button className='btn-success'>
+                    <Link className="text-white" to={`projects/edit/${project.id}`}>
+                        Edit
+                    </Link>
+                </Button>
                 <Button onClick={() => deleteProject(project.id)} type='button'>
                     Delete
                 </Button>
@@ -32,7 +37,9 @@ const ProjectsList = ({projects, deleteProject, searchProject}) => {
                        type="search" placeholder="Search project"/>
             </form>
             <div>
-                <Link to='projects/create/'>Create new project</Link>
+                <Button>
+                    <Link className="text-white" to='projects/create/'>Create new project</Link>
+                </Button>
             </div>
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
@@ -41,7 +48,7 @@ const ProjectsList = ({projects, deleteProject, searchProject}) => {
                         <th>Project Name</th>
                         <th>Repo URL</th>
                         <th>Created at</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>

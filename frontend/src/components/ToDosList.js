@@ -30,7 +30,9 @@ const ToDosList = ({todos, deleteTodo}) => {
     return (
         <div>
             <div>
-                <Link to='notes/create/'>Create new todo</Link>
+                <Button>
+                    <Link className="text-white" to='notes/create/'>Create new todo</Link>
+                </Button>
             </div>
             <div className="table-responsive">
                 <table className="table table-striped table-sm">
