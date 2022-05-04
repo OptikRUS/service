@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from 'react-router-dom'
 import {Button} from "react-bootstrap";
 
@@ -29,7 +29,17 @@ const ProjectItem = ({project, deleteProject}) => {
 }
 
 
-const ProjectsList = ({projects, deleteProject, searchProject}) => {
+const ProjectsList = ({projects, deleteProject}) => {
+    const [filteredProjects, setProjects] = useState(projects)
+    
+    const searchProject = (event) => {
+        const query = event.target.value
+        if (query) {
+            setProjects(projects.filter((project) => project.name.includes(query)))
+        } else {
+            setProjects(projects)
+        }
+    }
     return (
         <div>
             <form className="form-inline mt-2 mt-md-0">
@@ -52,7 +62,7 @@ const ProjectsList = ({projects, deleteProject, searchProject}) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {projects?.map((project) => <ProjectItem key={project.id} project={project}
+                    {filteredProjects?.map((project) => <ProjectItem key={project.id} project={project}
                                                              deleteProject={deleteProject}/>)}
                     </tbody>
                 </table>
