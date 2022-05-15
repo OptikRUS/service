@@ -62,10 +62,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'service.urls'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost",
+#     "http://127.0.0.1",
+# ]
 
 TEMPLATES = [
     {
@@ -91,8 +91,12 @@ WSGI_APPLICATION = 'service.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'service',
+        'USER': 'django',
+        'PASSWORD': 'geekbrains',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 

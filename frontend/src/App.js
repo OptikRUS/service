@@ -160,16 +160,16 @@ class App extends React.Component {
             .catch(error => console.log(error))
     }
 
-    searchProject(event) {
-        const query = event.target.value
-        let filteredProjects = this.state.projects.filter((project) => project.name.includes(query))
-        let allProjects = this.state.projects
-        if (query) {
-            this.setState({searched_projects: filteredProjects})
-        } else {
-            this.setState({searched_projects: allProjects})
-        }
-    }
+    // searchProject(event) {
+    //     const query = event.target.value
+    //     let filteredProjects = this.state.projects.filter((project) => project.name.includes(query))
+    //     let allProjects = this.state.projects
+    //     if (query) {
+    //         this.setState({searched_projects: filteredProjects})
+    //     } else {
+    //         this.setState({searched_projects: allProjects})
+    //     }
+    // }
 
     componentDidMount() {
         this.getTokenFromStorage();
@@ -221,8 +221,7 @@ class App extends React.Component {
                                                                                              editProject={(id, name, repo, users) => this.editProject(id, name, repo, users)}/>}/>
                         <Route exact path='/projects'
                                component={() => <ProjectsList projects={this.state.searched_projects}
-                                                              deleteProject={(id) => this.deleteProject(id)}
-                                                              searchProject={(event) => this.searchProject(event)}/>}/>
+                                                              deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route path='/projects/:id'>
                             <ProjectDetail items={this.state.projects}/>
                         </Route>
